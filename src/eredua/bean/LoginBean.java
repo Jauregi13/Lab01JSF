@@ -2,11 +2,14 @@ package eredua.bean;
 
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 public class LoginBean {
 	private String izena;
 	private String pasahitza;
 	private Date data;
-	
+
 	public LoginBean(){
 	}
 	public String getIzena() {
@@ -22,8 +25,15 @@ public class LoginBean {
 		this. pasahitza = pasahitza;
 	}
 	public String egiaztatu() {
-		if (izena.equals("pirata")) return "error";
-		else return "ok";
+		if (izena.length()!=pasahitza.length()){
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Errorea: izenaren eta pasahitzaren luzera desberdinak dira."));
+			return null;
+		}
+		if (izena.equals("pirata"))
+			return "error";
+		else
+			return "ok";
 	}
 	public Date getData() {
 		return data;
